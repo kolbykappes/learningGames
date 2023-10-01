@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="next-question-container" *ngIf="showCorrectAnswer">
-        <button mat-raised-button color="accent" (click)="nextQuestion()">Next Question</button>
+        <button *ngIf="!isGameOver" mat-raised-button color="accent" (click)="nextQuestion()">Next Question</button>
       </div>
       <button mat-raised-button color="warn" [disabled]="helpButtonDisabled || overlayMessage" (click)="helpMeMissK()">Help me Miss K!</button>
     </mat-card-content>

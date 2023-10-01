@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from './question.service';
+import { ChangeDetectorRef } from '@angular/core';
 import Ajv from 'ajv';
 
 @Component({
@@ -22,8 +23,9 @@ export class AppComponent implements OnInit {
   helpButtonDisabled = false;
   feedbackIcons: string[] = [];
   helpClicks = 0;
+  isGameOver: boolean = true;
 
-  constructor(private questionService: QuestionService) {}
+  constructor(private cdr: ChangeDetectorRef, private questionService: QuestionService) {}
 
   ngOnInit() {
     // Validate JSON files against schema
@@ -41,12 +43,13 @@ export class AppComponent implements OnInit {
 
   startGame(level: number) {
     clearInterval(this.timer);  // Clear any existing timer
+    this.isGameOver = false;
     this.currentLevel = level;
-    this.currentQuestionIndex = 0;
+    this.currentQuestionIndex = 0;  // Reset the question index
     this.score = 0;  // Reset the score
     this.questions = this.shuffleArray(this.questionService.getQuestions(level));
-    this.nextQuestion();
     this.startTimer(level);  // Start the timer based on the level
+    this.cdr.detectChanges();  // Force change detection
   }
 
   // Shuffle function to randomize questions
@@ -60,8 +63,9 @@ export class AppComponent implements OnInit {
 
   nextQuestion() {
     clearInterval(this.timer);
-    this.currentQuestionIndex++;
+
     if (this.currentQuestionIndex < this.questions.length) {
+      this.currentQuestionIndex++;
       this.overlayMessage = null;
       this.showCorrectAnswer = false;
       this.buttonsDisabled = false;
@@ -71,6 +75,7 @@ export class AppComponent implements OnInit {
       this.startTimer(this.questions[this.currentQuestionIndex].timeLimit);
     } else {
       this.overlayMessage = 'Game Over';
+      this.isGameOver = true;
     }
   }
 
