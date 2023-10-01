@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
     this.buttonsDisabled = true;
     clearInterval(this.timer);  // Stop the timer
     if (correctAnswers.includes(selectedIndex)) {
-      this.overlayMessage = "You're right!";
+      this.overlayMessage = "You're right! Good job!";
       this.feedbackIcons[selectedIndex] = 'check';
     } else {
       this.overlayMessage = "Sorry, that's not it";
