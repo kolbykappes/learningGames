@@ -18,7 +18,8 @@ export class AppComponent implements OnInit {
   questions: Question[] = [];
   currentQuestionIndex = 0;
   score = 0;
-  currentLevel = 1;  // Add this line for the current level
+  currentLevel = 1;
+  showCorrectAnswer = false;  // New property to control the display of the correct answer
 
   constructor(private questionService: QuestionService) { }
 
@@ -26,20 +27,26 @@ export class AppComponent implements OnInit {
     this.startGame(this.currentLevel);
   }
 
-  startGame(level: number) {  // Add this method to start the game
+  startGame(level: number) {
     this.currentLevel = level;
     this.questions = this.questionService.getQuestions().filter(q => q.level === level);
     this.currentQuestionIndex = 0;
     this.score = 0;
+    this.showCorrectAnswer = false;  // Reset for a new game
   }
 
   checkAnswer(selectedIndex: number, correctAnswers: number[]) {
     if (correctAnswers.includes(selectedIndex)) {
       this.score++;
+      this.showCorrectAnswer = false;  // Hide the correct answer
+      this.nextQuestion();
+    } else {
+      this.showCorrectAnswer = true;  // Show the correct answer
     }
   }
 
   nextQuestion() {
     this.currentQuestionIndex++;
+    this.showCorrectAnswer = false;  // Hide the correct answer for the next question
   }
 }

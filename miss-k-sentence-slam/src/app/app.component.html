@@ -7,14 +7,16 @@
   </div>
   <div>Current Level: {{ currentLevel }}</div> <!-- Add this line to show the current level -->
 
-  <div *ngIf="questions.length > 0">
-    <div>{{ questions[currentQuestionIndex].sentence }}</div>
-    <div>
-      <button *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
-              (click)="checkAnswer(i, questions[currentQuestionIndex].correctAnswers)">
-        {{ option }}
-      </button>
-    </div>
+<div *ngIf="questions.length > 0">
+  <div>{{ questions[currentQuestionIndex].sentence }}</div>
+  <div>
+    <button *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
+            [ngClass]="{'correct-answer': showCorrectAnswer && questions[currentQuestionIndex].correctAnswers.includes(i)}"
+            (click)="checkAnswer(i, questions[currentQuestionIndex].correctAnswers)">
+      {{ option }}
+    </button>
+  </div>
+  <div *ngIf="showCorrectAnswer">
     <button (click)="nextQuestion()">Next Question</button>
   </div>
 </div>
