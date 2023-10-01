@@ -8,6 +8,8 @@ import Ajv from 'ajv';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  score: number = 0;
   title = 'Miss K Sentence Slam';
   currentLevel = 1;
   currentQuestionIndex = 0;
@@ -37,13 +39,14 @@ export class AppComponent implements OnInit {
     this.startGame(1);
   }
 
-  // This function starts the game and initializes variables
   startGame(level: number) {
-    clearInterval(this.timer);
+    clearInterval(this.timer);  // Clear any existing timer
     this.currentLevel = level;
     this.currentQuestionIndex = 0;
+    this.score = 0;  // Reset the score
     this.questions = this.shuffleArray(this.questionService.getQuestions(level));
     this.nextQuestion();
+    this.startTimer(level);  // Start the timer based on the level
   }
 
   // Shuffle function to randomize questions
@@ -84,23 +87,32 @@ export class AppComponent implements OnInit {
     this.showCorrectAnswer = true;
   }
 
-  startTimer(timeLimit: number | null) {
-    clearInterval(this.timer);
-    if (timeLimit) {
+  startTimer(level: number) {
+    let timeLimit: number | null = null;
+    let warningTime: number | null = null;
+
+    if (level === 2) {
+      timeLimit = 30;
+      warningTime = 10;
+    } else if (level === 3) {
+      timeLimit = 15;
+      warningTime = 5;
+    }
+
+    if (timeLimit !== null) {
       this.remainingTime = timeLimit;
       this.timer = setInterval(() => {
-        if (this.remainingTime !== null) { // Add this null check
-          this.remainingTime--;
-          if (this.remainingTime <= 0) {
-            clearInterval(this.timer);
-            this.overlayMessage = 'Out of Time';
-            this.showCorrectAnswer = true;
-          }
-          if (this.remainingTime <= 5) {
-            // Change timer to red
-          }
+        this.remainingTime!--;
+        if (this.remainingTime === warningTime) {
+          // Trigger warning (this will activate the 'low-time' class in HTML)
+        }
+        if (this.remainingTime !== null && this.remainingTime <= 0) {
+          clearInterval(this.timer);
+          // Handle time-up scenario
         }
       }, 1000);
+    } else {
+      this.remainingTime = null;  // No timer for Level 1
     }
   }
 
