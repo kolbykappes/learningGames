@@ -1,0 +1,29 @@
+{
+    "questions": [
+      {
+        "level": 1,
+        "sentence": "The cat are big",
+        "options": [
+          "The cat is big",
+          "The cats are big",
+          "The cat are big",
+          "The cat big is"
+        ],
+        "correctAnswers": [0, 1],
+        "timeLimit": null
+      },
+      {
+        "level": 2,
+        "sentence": "She run to the store",
+        "options": [
+          "She runs to the store",
+          "She ran to the store",
+          "She run to the store",
+          "She running to the store"
+        ],
+        "correctAnswers": [0, 1],
+        "timeLimit": 30
+      }
+    ]
+  }
+  
