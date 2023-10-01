@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -37,7 +38,7 @@
                   "maximumWarning": "500kb",
                   "maximumError": "1mb"
                 },
-
+                
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
