@@ -51,11 +51,12 @@ export class AppComponent implements OnInit {
 
   checkAnswer(selectedIndex: number, correctAnswers: number[]) {
     this.buttonsDisabled = true;
+    clearInterval(this.timer);  // Stop the timer
     if (correctAnswers.includes(selectedIndex)) {
-      this.overlayMessage = 'You\'re right!';
+      this.overlayMessage = "You're right!";
       this.feedbackIcons[selectedIndex] = 'check';
     } else {
-      this.overlayMessage = 'Sorry, that\'s not it';
+      this.overlayMessage = "Sorry, that's not it";
       this.feedbackIcons[selectedIndex] = 'cancel';
     }
     this.showCorrectAnswer = true;
@@ -66,11 +67,16 @@ export class AppComponent implements OnInit {
     if (timeLimit) {
       this.remainingTime = timeLimit;
       this.timer = setInterval(() => {
-        this.remainingTime!--;  // Use non-null assertion
-        if (this.remainingTime! <= 0) {  // Use non-null assertion
-          clearInterval(this.timer);
-          this.overlayMessage = 'Out of Time';
-          this.showCorrectAnswer = true;
+        if (this.remainingTime !== null) { // Add this null check
+          this.remainingTime--;
+          if (this.remainingTime <= 0) {
+            clearInterval(this.timer);
+            this.overlayMessage = 'Out of Time';
+            this.showCorrectAnswer = true;
+          }
+          if (this.remainingTime <= 5) {
+            // Change timer to red
+          }
         }
       }, 1000);
     }
@@ -81,8 +87,8 @@ export class AppComponent implements OnInit {
       this.helpClicks++;
       const currentQuestion = this.questions[this.currentQuestionIndex];
       const wrongAnswers = currentQuestion.options
-        .map((option: string, index: number) => ({ option, index }))  // Specify types
-        .filter(({ index }: { index: number }) => !currentQuestion.correctAnswers.includes(index) && currentQuestion.options[index] !== null);  // Specify types
+        .map((option: string, index: number) => ({ option, index }))
+        .filter(({ index }: { index: number }) => !currentQuestion.correctAnswers.includes(index) && currentQuestion.options[index] !== null);
   
       const randomWrongIndex = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)].index;
       currentQuestion.options[randomWrongIndex] = null;
