@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Locker Multiplication Game</title>
+  <style>
+    .locker {
+      width: 50px;
+      height: 50px;
+      border: 1px solid black;
+      display: inline-block;
+      text-align: center;
+      vertical-align: top;
+      cursor: pointer;
+    }
+    .open {
+      background-color: black;
+      color: white;
+    }
+    .closed {
+      background-color: red;
+    }
+    .row {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Locker Multiplication Game</h1>
+  <p>Current Level: <span id="currentLevel">1</span></p>
+  <button onclick="setLevel(1)">Level 1</button>
+  <button onclick="setLevel(2)">Level 2</button>
+  <button onclick="setLevel(3)">Level 3</button>
+  <p id="question"></p>
+  <div id="lockers"></div>
+  <button onclick="checkAnswer()">Done</button>
+  <p id="message"></p>
+  <p id="timer">Time: <span id="time">0</span> seconds</p>
+
+  <script>
+    let currentLevel = 1;
+    let currentQuestion = '';
+    let timerStarted = false;
+    let timer = 0;
+    let wrongAnswers = 0;
+    let levelQuestions = {
+      1: ['odd', 'even'],
+      2: ['third', 'fifth'],
+      3: ['seventh', 'prime']
+    };
+
+    function isPrime(num) {
+      for(let i = 2; i < num; i++)
+        if(num % i === 0) return false;
+      return num !== 1;
+    }
+
+    function generateLockers(num) {
+      document.getElementById('lockers').innerHTML = '';
+      let row = document.createElement('div');
+      row.className = 'row';
+      for (let i = 1; i <= num; i++) {
+        if (i % 10 === 1 && i !== 1) {
+          document.getElementById('lockers').appendChild(row);
+          row = document.createElement('div');
+          row.className = 'row';
+        }
+        let locker = document.createElement('div');
+        locker.className = 'locker closed';
+        locker.id = 'locker' + i;
+        locker.innerHTML = i;
+        locker.onclick = function() {
+          toggleLocker(i);
+        };
+        row.appendChild(locker);
+      }
+      document.getElementById('lockers').appendChild(row);
+    }
+
+    function toggleLocker(i) {
+      if (!timerStarted) {
+        startTimer();
+      }
+      let locker = document.getElementById('locker' + i);
+      locker.classList.toggle('open');
+      locker.classList.toggle('closed');
+    }
+
+    function startTimer() {
+      timerStarted = true;
+      setInterval(function() {
+        timer++;
+        document.getElementById('time').innerText = timer;
+      }, 1000);
+    }
+
+    function pickQuestion(level) {
+      let questions = levelQuestions[level];
+      let randomIndex = Math.floor(Math.random() * questions.length);
+      currentQuestion = questions[randomIndex];
+      document.getElementById('question').innerText = `Open all the ${currentQuestion} lockers.`;
+    }
+
+    function setLevel(level) {
+      timer = 0;
+      timerStarted = false;
+      wrongAnswers = 0;
+      document.getElementById('time').innerText = '0';
+      document.getElementById('currentLevel').innerText = level;
+      currentLevel = level;
+      generateLockers(level * 10);
+      pickQuestion(level);
+    }
+
+    function flashCorrectAnswers() {
+      // Implement flashing correct answers for Level 1
+      let numLockers = document.querySelectorAll('.locker').length;
+      for (let i = 1; i <= numLockers; i++) {
+        let locker = document.getElementById('locker' + i);
+        if (currentQuestion === 'odd' && i % 2 !== 0) locker.classList.add('open');
+        if (currentQuestion === 'even' && i % 2 === 0) locker.classList.add('open');
+      }
+      setTimeout(function() {
+        for (let i = 1; i <= numLockers; i++) {
+          let locker = document.getElementById('locker' + i);
+          locker.classList.remove('open');
+          locker.classList.add('closed');
+        }
+      }, 1000);
+    }
+
+    function checkAnswer() {
+      let correct = true;
+      let numLockers = document.querySelectorAll('.locker').length;
+      for (let i = 1; i <= numLockers; i++) {
+        let locker = document.getElementById('locker' + i);
+        let isOpen = locker.classList.contains('open');
+        if (currentQuestion === 'odd' && i % 2 !== 0 && !isOpen) correct = false;
+        if (currentQuestion === 'even' && i % 2 === 0 && !isOpen) correct = false;
+        if (currentQuestion === 'third' && i % 3 === 0 && !isOpen) correct = false;
+        if (currentQuestion === 'fifth' && i % 5 === 0 && !isOpen) correct = false;
+        if (currentQuestion === 'seventh' && i % 7 === 0 && !isOpen) correct = false;
+        if (currentQuestion === 'prime' && isPrime(i) && !isOpen) correct = false;
+      }
+      if (correct) {
+        document.getElementById('message').innerText = 'Correct!';
+      } else {
+        if (currentLevel === 1) {
+          flashCorrectAnswers();
+        }
+        if (currentLevel >= 2) {
+          wrongAnswers++;
+        }
+        if (currentLevel === 3) {
+          setLevel(3);
+        }
+        document.getElementById('message').innerText = 'Try again. Wrong attempts: ' + wrongAnswers;
+      }
+    }
+
+    setLevel(1);
+  </script>
+
+</body>
+</html>

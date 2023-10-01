@@ -1,0 +1,113 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+  }
+  #title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  #buttons {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .button {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  #game-board {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #question-area {
+    width: 100%;
+    max-width: 800px;
+    background-color: #f0f0f0; /* Lighter gray */
+    position: relative;
+    padding: 10px;
+  }
+  #score-box {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border: 1px solid black;
+    padding: 10px;
+  }
+  #question-label {
+    font-size: 18px;
+    margin: 20px;
+  }
+  #question {
+    font-size: 24px;
+    color: darkblue;
+    margin: 20px;
+  }
+  #help-button {
+    margin: 20px;
+  }
+  #options-box {
+    width: 100%;
+    max-width: 800px;
+    border: 2px solid black;
+    padding: 20px;
+  }
+  #options-box button {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .option {
+    font-size: 16px;
+    padding: 15px 15px;
+    margin: 10px;
+    cursor: pointer;
+    border: 1px solid #000;
+    background-color:rgb(193, 233, 235);
+    border-radius: 8px;
+    width: 100%;
+  }
+  .hidden {
+    display: none;
+  }
+  
+  #game-over-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  #game-over-message {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .you-win {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .end-of-game-style {
+    font-weight: bold;
+    color: darkblue;
+  }

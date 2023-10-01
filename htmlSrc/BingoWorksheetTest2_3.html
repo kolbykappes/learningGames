@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    h1, h2 {
+      text-align: center;
+      width: 100%;
+    }
+    .container {
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      font-size: 24px;
+      border-collapse: collapse;
+      margin: auto;
+    }
+    .grid div {
+      border: 2px solid black;
+      padding: 16px;
+      text-align: center;
+      background-color: #f1f1f1;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fraction {
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .fraction span {
+      display: block;
+      line-height: 1.2;
+    }
+    @media print {
+      body {
+        margin: 0;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Multiplication Bingo</h1>
+  <h2>Level 3</h2>
+
+  <div class="grid">
+    <div>12 x 9</div>
+    <div>15 x 7</div>
+    <div>11 x 8</div>
+    <div><span class="fraction"><span>3</span><span>---</span><span>4</span></span> x 8</div>
+    <div><span class="fraction"><span>5</span><span>---</span><span>6</span></span> x 12</div>
+    <div>14 x 6</div>
+    <div>13 x 7</div>
+    <div>9 x 8</div>
+    <div>7 x 11</div>
+    <div>6 x 12</div>
+    <div>8 x 10</div>
+    <div><span class="fraction"><span>5</span><span>---</span><span>6</span></span> x 6</div>
+    <div><span class="fraction"><span>3</span><span>---</span><span>4</span></span> x 12</div>
+    <div>7 x 9</div>
+    <div>6 x 14</div>
+    <div>8 x 11</div>
+  </div>
+</div>
+
+</body>
+</html>

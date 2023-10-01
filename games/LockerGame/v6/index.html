@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Miss K's Locker Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+  <h1 id="teacherName">Miss K's Locker Game<span id="schoolName">PS 279</span></h1>
+  
+  <div>
+    <button onclick="setLevel(1)">Level 1</button>
+    <button onclick="setLevel(2)">Level 2</button>
+    <button onclick="setLevel(3)">Level 3</button>
+  </div>
+  <p>Current Level: <span id="currentLevel"></span></p>
+  <p id="question"></p>
+  <div id="lockers" style="display:none;"></div>
+  <button onclick="checkAnswer()" style="display:none;" id="checkButton">Check my work</button>
+  <p id="message"></p>
+  <p id="timer">Time: <span id="time">0</span> seconds</p>
+  <div id="overlay">
+    <p>Great Job!</p>
+    <button onclick="newGame()">New Game</button>
+  </div>
+  
+<button onclick="showGameHistory()" class="push-down">Show Game History</button>
+<p id="version">Version: 8</p>
+
+<div id="gameHistoryOverlay" class="overlay">
+  <div class="overlay-content">
+    <span onclick="closeGameHistory()" class="close-button">&times;</span>    
+    <h2>Game History</h2>
+    <div id="gameHistory"></div>
+    <button onclick="clearGameHistory()">Clear History</button>
+  </div>
+</div>
+
+  <div id="report"></div>
+
+  <script src="script.js"></script>
+  <script src="reporting.js"></script>
+
+</body>
+</html>

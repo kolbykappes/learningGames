@@ -1,0 +1,70 @@
+body, p, h1, button {
+    font-family: Arial;
+  }
+  .locker {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    cursor: pointer;
+    font-size: 18px;
+    color: white;
+  }
+  .open {
+    background-color: black;
+  }
+  .red {
+    background-color: #990000;
+  }
+  .green {
+    background-color: #006600;
+  }
+  .blue {
+    background-color: #000099;
+  }
+  .row {
+    margin-bottom: 10px;
+  }
+  #overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    text-align: center;
+    font-size: 48px;
+  }
+  #question {
+font-weight: bold;
+color: blue;
+}
+
+#message.wrong {
+font-weight: bold;
+color: darkred;
+}
+
+#version {
+font-size: 12px;
+color: lightgray;
+}    
+
+@media only screen and (max-width: 768px) {
+.locker {
+  width: 35px;  /* Increased size */
+  height: 50px;  /* Increased size */
+  font-size: 20px;  /* Increased font size */
+}
+button {
+  font-size: 24px;  /* Increased font size */
+  padding: 15px;  /* Increased padding */
+}
+h1, p {
+  font-size: 24px;  /* Increased font size */
+}
+}

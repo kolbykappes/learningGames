@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Miss K's Super Awesome Vocabulary Game-O-Rama</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    #buttons {
+      margin-bottom: 20px;
+    }
+    .button {
+      padding: 10px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="title">Miss K's Super Awesome Vocabulary Game-O-Rama</div>
+<div id="buttons">
+  <button class="button" onclick="setLevel(1)">Level 1</button>
+  <button class="button" onclick="setLevel(2)">Level 2</button>
+  <button class="button" onclick="setLevel(3)">Level 3</button>
+</div>
+<div id="question"></div>
+<div id="options"></div>
+
+<script>
+  const words = {
+    'Level 1': [
+        ['Descent', 'The act of moving downward, dropping, or falling.'],
+        ['Propaganda', 'Information, especially biased or misleading, used to promote a particular point of view.'],
+        ['Deport', 'To expel an individual from a country, typically back to their home country.'],
+        ['Viewpoints', 'Different attitudes or ways of looking at something.'],
+        ['Phenomenon', 'An event or situation that can be observed, often something extraordinary or unexplained.'],
+        ['Endorsement', 'Official approval or support for something, often publicly.'],
+        ['Hurdle', 'An obstacle or difficulty that must be overcome.'],
+        ['Dubious', 'Filled with doubt or uncertainty.'],
+        ['Indigenous', 'Originally existing or produced in a particular place or environment.'],
+      ],
+    'Level 2': [
+      ['Descent', 'Going down or falling.'],
+      // ... Add your words here
+    ],
+    'Level 3': [
+      ['Descent', 'Going down.'],
+      // ... Add your words here
+    ],
+  };
+
+  let currentLevel = 'Level 1';
+  let score = 0;
+  let turns = 0;
+
+  function setLevel(level) {
+    currentLevel = 'Level ' + level;
+    turns = 0;
+    score = 0;
+    nextQuestion();
+  }
+
+  function nextQuestion() {
+    if (turns >= 10) {
+      let message = score >= 9 ? 'Great job!' : score >= 7 ? 'Good job!' : '';
+      alert(`Your score is ${score}. ${message}`);
+      score = 0;
+      turns = 0;
+      return;
+    }
+
+    turns++;
+
+    let wordSet = words[currentLevel];
+    let questionIndex = Math.floor(Math.random() * wordSet.length);
+    let question = wordSet[questionIndex];
+
+    let mode = Math.random() > 0.5 ? 'word' : 'definition';
+
+    document.getElementById('question').innerText = mode === 'word' ? question[0] : question[1];
+
+    let options = [];
+    options.push(question);
+
+    while (options.length < 4) {
+      let option = wordSet[Math.floor(Math.random() * wordSet.length)];
+      if (!options.includes(option)) {
+        options.push(option);
+      }
+    }
+
+    options.sort(() => Math.random() - 0.5);
+
+    let html = '';
+    options.forEach((option, index) => {
+      html += `<button class="button" onclick="checkAnswer(${index}, '${mode}')">${mode === 'word' ? option[1] : option[0]}</button>`;
+    });
+
+    document.getElementById('options').innerHTML = html;
+  }
+
+  function checkAnswer(index, mode) {
+    let questionText = document.getElementById('question').innerText;
+    let correctAnswer = words[currentLevel].find(w => w[0] === questionText || w[1] === questionText);
+
+    let answerButton = document.getElementsByClassName('button')[index];
+    if (answerButton.innerText === (mode === 'word' ? correctAnswer[1] : correctAnswer[0])) {
+      score++;
+    }
+
+    nextQuestion();
+  }
+
+  setLevel(1);
+</script>
+</body>
+</html>
+
+

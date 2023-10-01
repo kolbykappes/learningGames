@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Locker Multiplication Game</title>
+  <style>
+    .locker {
+      width: 50px;
+      height: 50px;
+      border: 1px solid black;
+      display: inline-block;
+      text-align: center;
+      vertical-align: top;
+      cursor: pointer;
+    }
+    .open {
+      background-color: black;
+      color: white;
+    }
+    .closed {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Locker Multiplication Game</h1>
+  <p id="question"></p>
+  <div id="lockers"></div>
+  <button onclick="checkAnswer()">Done</button>
+  <p id="message"></p>
+  <p id="timer">Time: <span id="time">0</span> seconds</p>
+
+  <script>
+    let questionTypes = ['odd', 'even', 'third'];
+    let currentQuestion = '';
+    let timerStarted = false;
+    let timer = 0;
+
+    function generateLockers() {
+      for (let i = 1; i <= 10; i++) {
+        let locker = document.createElement('div');
+        locker.className = 'locker closed';
+        locker.id = 'locker' + i;
+        locker.innerHTML = i;
+        locker.onclick = function() {
+          toggleLocker(i);
+        };
+        document.getElementById('lockers').appendChild(locker);
+      }
+    }
+
+    function toggleLocker(i) {
+      if (!timerStarted) {
+        startTimer();
+      }
+      let locker = document.getElementById('locker' + i);
+      locker.classList.toggle('open');
+      locker.classList.toggle('closed');
+    }
+
+    function startTimer() {
+      timerStarted = true;
+      setInterval(function() {
+        timer++;
+        document.getElementById('time').innerText = timer;
+      }, 1000);
+    }
+
+    function pickQuestion() {
+      let randomIndex = Math.floor(Math.random() * questionTypes.length);
+      currentQuestion = questionTypes[randomIndex];
+      document.getElementById('question').innerText = `Open all the ${currentQuestion} lockers.`;
+    }
+
+    function checkAnswer() {
+      let correct = true;
+      for (let i = 1; i <= 10; i++) {
+        let locker = document.getElementById('locker' + i);
+        let isOpen = locker.classList.contains('open');
+        if (currentQuestion === 'odd' && i % 2 !== 0 && !isOpen) correct = false;
+        if (currentQuestion === 'even' && i % 2 === 0 && !isOpen) correct = false;
+        if (currentQuestion === 'third' && i % 3 === 0 && !isOpen) correct = false;
+      }
+      if (correct) {
+        document.getElementById('message').innerText = 'Correct!';
+      } else {
+        document.getElementById('message').innerText = 'Try again.';
+      }
+    }
+
+    generateLockers();
+    pickQuestion();
+  </script>
+
+</body>
+</html>

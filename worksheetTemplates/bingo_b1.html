@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Math Worksheet</title>
+    <style>
+      @media print {
+        body,
+        html {
+          margin: 0;
+          padding: 0;
+        }
+        .container {
+          page-break-after: avoid;
+        }
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        text-align: center;
+        padding: 10px;
+        background-color: #f2f2f2;
+      }
+      .teacher-school {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(4, 24%);
+        grid-template-rows: repeat(4, 24%);
+        gap: 1% 1%;
+        grid-row-gap: 2%;
+        margin: 20px;
+      }
+      .problem {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 15vh;
+        font-weight: bold; /* Make the text bold */
+        font-size: 24px; /* Increase the font size */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="teacher-school">
+        <span>Teacher: </span>
+        <span>School: </span>
+        </div>
+      <h1>Multiplication Bingo - Baseball</h1>
+    </header>
+
+    <div class="container">
+      <div class="problem">4 * 5</div>
+      <div class="problem">10 * 2</div>
+      <div class="problem">5 * 8</div>
+      <div class="problem">3 * 6</div>
+      <div class="problem">10 * 3</div>
+      <div class="problem">4 * 4</div>
+      <div class="problem">2 * 8</div>
+      <div class="problem">5 * 6</div>
+      <div class="problem">3 * 10</div>
+      <div class="problem">2 * 12</div>
+      <div class="problem">4 * 9</div>
+      <div class="problem">6 * 5</div>
+      <div class="problem">7 * 4</div>
+      <div class="problem">8 * 2</div>
+      <div class="problem">9 * 3</div>
+      <div class="problem">10 * 4</div>
+          </div>
+  </body>
+</html>

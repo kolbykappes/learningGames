@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+h1, h2 {
+  text-align: center;
+  width: 100%;
+}
+
+.card {
+  border: 2px solid black;
+  padding: 40px;
+  text-align: center;
+  background-color: #f1f1f1;
+  width: 400px;
+  height: 220px;
+  margin: 4px;
+  box-sizing: border-box;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.level {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 12px;
+}
+
+.fraction {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 10px; /* Added this line */
+}
+
+.fraction span {
+  display: block;
+  line-height: 1.2;
+}
+
+@media print {
+  body {
+    margin: 0;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    117
+    <div class="level">Level 3</div>
+  </div>
+  <div class="card">
+    112
+    <div class="level">Level 3</div>
+  </div>
+  <div class="card">
+    96
+    <div class="level">Level 3</div>
+  </div>
+  <div class="card">
+    6
+    <div class="level">Level 3</div>
+  </div>
+  <div class="card">
+    90
+    <div class="level">Level 3</div>
+  </div>
+  <div class="card">
+    112
+    <div class="level">Level 3</div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Miss K's Super Awesome Vocabulary Game-O-Rama</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<div id="title">Miss K's Super Awesome Vocabulary Game-O-Rama</div>
+<div id="buttons">
+  <button class="button" onclick="setLevel(1)">Level 1</button>
+  <button class="button" onclick="setLevel(2)">Level 2</button>
+  <button class="button" onclick="setLevel(3)">Level 3</button>
+</div>
+<div id="game-board">
+    <div id="end-of-game" class="hidden">
+        <div id="end-of-game-message" class="end-of-game-style"></div>
+      </div>  
+  <div id="question-area">
+    <div id="score-box">Score: <span id="score">0/0</span></div>
+    <div id="question-label"></div>
+    <div id="question"></div>
+  </div>
+  <div id="options-box">
+    <div id="options"></div>
+  </div>
+  <button id="help-button" onclick="helpMe()">Help me Miss K!</button>
+
+</div>
+  
+
+<script src="words.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

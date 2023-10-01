@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Miss K's Locker Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+
+  <style>
+
+
+  </style>
+</head>
+<body>
+
+  <h1>Miss K's Locker Game</h1>
+  <div>
+    <button onclick="setLevel(1)">Level 1</button>
+    <button onclick="setLevel(2)">Level 2</button>
+    <button onclick="setLevel(3)">Level 3</button>
+  </div>
+  <p>Current Level: <span id="currentLevel"></span></p>
+  <p id="question"></p>
+  <div id="lockers" style="display:none;"></div>
+  <button onclick="checkAnswer()" style="display:none;" id="checkButton">Check my work Miss K!</button>
+  <p id="message"></p>
+  <p id="timer">Time: <span id="time">0</span> seconds</p>
+  <p>Version: 7</p>
+  <div id="overlay">
+    <p>Great Job!</p>
+    <button onclick="newGame()">New Game</button>
+  </div>
+
+  <script>
+    let currentLevel = 1;
+    let currentQuestion = '';
+    let timerStarted = false;
+    let timer = 0;
+    let wrongAnswers = 0;
+    let currentColor = 'red';
+    let levelQuestions = {
+  1: ['odd', 'even'],
+  2: ['third', 'fifth', 'fourth'],  // Added 'fourth'
+  3: ['seventh', 'prime', 'ninth']  // Added 'ninth'
+};
+
+    function isPrime(num) {
+      for(let i = 2; i < num; i++)
+        if(num % i === 0) return false;
+      return num !== 1;
+    }
+
+    function generateLockers(num) {
+      document.getElementById('lockers').innerHTML = '';
+      let row = document.createElement('div');
+      row.className = 'row';
+      for (let i = 1; i <= num; i++) {
+        if (i % 10 === 1 && i !== 1) {
+          document.getElementById('lockers').appendChild(row);
+          row = document.createElement('div');
+          row.className = 'row';
+        }
+        let locker = document.createElement('div');
+        locker.className = `locker ${currentColor === 'random' ? getRandomColor() : currentColor}`;
+        locker.id = 'locker' + i;
+        locker.innerHTML = i;
+        locker.onclick = function() {
+          toggleLocker(i);
+        };
+        row.appendChild(locker);
+      }
+      document.getElementById('lockers').appendChild(row);
+    }
+
+    function newGame() {
+      timer = 0;
+      timerStarted = false;
+      wrongAnswers = 0;
+      document.getElementById('time').innerText = '0';
+      document.getElementById('lockers').style.display = 'none';
+      document.getElementById('checkButton').style.display = 'none';
+      document.getElementById('currentLevel').innerText = '';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    function setLevel(level) {
+        timer = 0;  // Reset the timer
+  document.getElementById('time').innerText = '0';         
+      document.getElementById('lockers').style.display = 'block';
+      document.getElementById('checkButton').style.display = 'block';
+      document.getElementById('currentLevel').innerText = level;
+      currentLevel = level;
+      generateLockers(level * 10);
+      pickQuestion(level);
+    }
+
+    function getRandomColor() {
+      let colors = ['red', 'green', 'blue'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function toggleLocker(i) {
+      if (!timerStarted) {
+        startTimer();
+      }
+      let locker = document.getElementById('locker' + i);
+      locker.classList.toggle('open');
+      locker.classList.toggle(currentColor);
+    }
+
+    function startTimer() {
+      timerStarted = true;
+      setInterval(function() {
+        timer++;
+        document.getElementById('time').innerText = timer;
+      }, 1000);
+    }
+
+    function pickQuestion(level) {
+      let questions = levelQuestions[level];
+      let randomIndex = Math.floor(Math.random() * questions.length);
+      currentQuestion = questions[randomIndex];
+      document.getElementById('question').innerText = `Open all the ${currentQuestion} lockers.`;
+    }
+
+    function checkAnswer() {
+  let correct = true;
+  let numLockers = document.querySelectorAll('.locker').length;
+  for (let i = 1; i <= numLockers; i++) {
+    let locker = document.getElementById('locker' + i);
+    let isOpen = locker.classList.contains('open');
+    if (currentQuestion === 'odd' && i % 2 !== 0 && !isOpen) correct = false;
+    if (currentQuestion === 'even' && i % 2 === 0 && !isOpen) correct = false;
+    if (currentQuestion === 'third' && i % 3 === 0 && !isOpen) correct = false;
+    if (currentQuestion === 'fourth' && i % 4 === 0 && !isOpen) correct = false;  // Added this line
+    if (currentQuestion === 'fifth' && i % 5 === 0 && !isOpen) correct = false;
+    if (currentQuestion === 'seventh' && i % 7 === 0 && !isOpen) correct = false;
+    if (currentQuestion === 'ninth' && i % 9 === 0 && !isOpen) correct = false;  // Added this line
+    if (currentQuestion === 'prime' && isPrime(i) && !isOpen) correct = false;
+  }
+  // ... (rest of the code)
+      if (correct) {
+    document.getElementById('message').classList.remove('wrong');
+    document.getElementById('overlay').style.display = 'block';
+  } else {
+    document.getElementById('message').classList.add('wrong');
+    document.getElementById('message').innerText = 'Try again.';
+  }
+    }
+
+    newGame();
+  </script>
+
+</body>
+</html>
