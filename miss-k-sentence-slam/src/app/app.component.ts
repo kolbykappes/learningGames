@@ -1,81 +1,79 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from './question.service';
 
-interface Question {
-  level: number;
-  sentence: string;
-  options: (string | null)[];
-  correctAnswers: number[];
-  timeLimit: number | null;
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  questions: Question[] = [];
-  currentQuestionIndex = 0;
-  score = 0;
   currentLevel = 1;
-  showCorrectAnswer = false;
+  currentQuestionIndex = 0;
+  questions: any[] = [];
   remainingTime: number | null = null;
+  timer: any;
   overlayMessage: string | null = null;
+  showCorrectAnswer = false;
   buttonsDisabled = false;
-  feedbackIcons: string[] = [];
-  selectedAnswerIndex: number | null = null;
-  helpClicks = 0;
   helpButtonDisabled = false;
+  feedbackIcons: string[] = [];
+  helpClicks = 0;
 
-  constructor(private questionService: QuestionService) { }
+  constructor(private questionService: QuestionService) {}
 
   ngOnInit() {
-    this.startGame(1);  // Default to level 1
+    this.startGame(1);
   }
-  
 
   startGame(level: number) {
+    clearInterval(this.timer);
     this.currentLevel = level;
-    this.questions = this.questionService.getQuestions(level);
     this.currentQuestionIndex = 0;
-    this.score = 0;
-    this.showCorrectAnswer = false;
-    this.startTimer();
-    this.helpClicks = 0;
-    this.helpButtonDisabled = false;
+    this.questions = this.questionService.getQuestions(level);
+    this.nextQuestion();
   }
 
-  startTimer() {
-    if (this.questions[this.currentQuestionIndex].timeLimit) {
-      this.remainingTime = this.questions[this.currentQuestionIndex].timeLimit;
-      const timer = setInterval(() => {
-        if (this.remainingTime! > 0) {
-          this.remainingTime!--;
-        } else {
-          clearInterval(timer);
-          this.nextQuestion();
-        }
-      }, 1000);
+  nextQuestion() {
+    clearInterval(this.timer);
+    this.currentQuestionIndex++;
+    if (this.currentQuestionIndex < this.questions.length) {
+      this.overlayMessage = null;
+      this.showCorrectAnswer = false;
+      this.buttonsDisabled = false;
+      this.helpButtonDisabled = false;
+      this.feedbackIcons = [];
+      this.helpClicks = 0;
+      this.startTimer(this.questions[this.currentQuestionIndex].timeLimit);
+    } else {
+      this.overlayMessage = 'Game Over';
     }
   }
 
   checkAnswer(selectedIndex: number, correctAnswers: number[]) {
-    this.selectedAnswerIndex = selectedIndex;
     this.buttonsDisabled = true;
     if (correctAnswers.includes(selectedIndex)) {
-      this.score++;
-      this.overlayMessage = "You're right!";
+      this.overlayMessage = 'You\'re right!';
       this.feedbackIcons[selectedIndex] = 'check';
     } else {
-      this.overlayMessage = "Sorry, that's not it";
-      this.feedbackIcons[selectedIndex] = 'close';
-      this.showCorrectAnswer = true;
+      this.overlayMessage = 'Sorry, that\'s not it';
+      this.feedbackIcons[selectedIndex] = 'cancel';
     }
-    setTimeout(() => {
-      this.overlayMessage = null;
-      this.nextQuestion();
-    }, 2000);
+    this.showCorrectAnswer = true;
+  }
+
+  startTimer(timeLimit: number | null) {
+    clearInterval(this.timer);
+    if (timeLimit) {
+      this.remainingTime = timeLimit;
+      this.timer = setInterval(() => {
+        this.remainingTime!--;  // Use non-null assertion
+        if (this.remainingTime! <= 0) {  // Use non-null assertion
+          clearInterval(this.timer);
+          this.overlayMessage = 'Out of Time';
+          this.showCorrectAnswer = true;
+        }
+      }, 1000);
+    }
   }
 
   helpMeMissK() {
@@ -83,8 +81,8 @@ export class AppComponent implements OnInit {
       this.helpClicks++;
       const currentQuestion = this.questions[this.currentQuestionIndex];
       const wrongAnswers = currentQuestion.options
-        .map((option, index) => ({ option, index }))
-        .filter(({ index }) => !currentQuestion.correctAnswers.includes(index) && currentQuestion.options[index] !== null);
+        .map((option: string, index: number) => ({ option, index }))  // Specify types
+        .filter(({ index }: { index: number }) => !currentQuestion.correctAnswers.includes(index) && currentQuestion.options[index] !== null);  // Specify types
   
       const randomWrongIndex = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)].index;
       currentQuestion.options[randomWrongIndex] = null;
@@ -93,16 +91,5 @@ export class AppComponent implements OnInit {
         this.helpButtonDisabled = true;
       }
     }
-  }
-  
-  nextQuestion() {
-    this.currentQuestionIndex++;
-    this.showCorrectAnswer = false;
-    this.buttonsDisabled = false;
-    this.feedbackIcons = [];
-    this.selectedAnswerIndex = null;
-    this.startTimer();
-    this.helpClicks = 0;
-    this.helpButtonDisabled = false;
   }
 }
