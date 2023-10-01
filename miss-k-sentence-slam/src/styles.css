@@ -1,11 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
 nhtml, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+/* Global styles */
 .spacer {
     flex: 1 1 auto;
   }
   
+  /* Styles for the question card */
+  .question-card {
+    margin: 20px;
+  }
+  
+  /* Styles for the question header */
+  .question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for the timer */
+  .timer {
+    font-weight: bold;
+  }
+  
+  /* Styles for the question box */
+  .question-box {
+    font-size: 24px;
+    border: 2px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+  }
+  
+  /* Styles for the options container */
+  .options-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Styles for each option */
+  .option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for the option label */
+  .option-label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  /* Styles for the option button */
+  .option-button {
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for the correct answer */
   .correct-answer {
     background-color: green;
   }

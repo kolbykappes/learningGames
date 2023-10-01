@@ -7,15 +7,24 @@
     <button mat-button (click)="startGame(3)">Level 3</button>
   </mat-toolbar>
   <div>Current Level: {{ currentLevel }}</div>
-  <mat-card *ngIf="questions.length > 0">
+  <mat-card *ngIf="questions.length > 0" class="question-card">
     <mat-card-content>
-      <div>{{ questions[currentQuestionIndex].sentence }}</div>
-      <div>
-        <button mat-raised-button *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
-                [ngClass]="{'correct-answer': showCorrectAnswer && questions[currentQuestionIndex].correctAnswers.includes(i)}"
-                (click)="checkAnswer(i, questions[currentQuestionIndex].correctAnswers)">
-          {{ option }}
-        </button>
+      <div class="question-header">
+        <span>Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}</span>
+        <span *ngIf="questions[currentQuestionIndex].timeLimit" class="timer">Time: {{ questions[currentQuestionIndex].timeLimit }}s</span>
+      </div>
+      <div class="question-box">
+        {{ questions[currentQuestionIndex].sentence }}
+      </div>
+      <div class="options-container">
+        <div class="option" *ngFor="let option of questions[currentQuestionIndex].options; let i = index">
+          <span class="option-label">{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[i] }}</span>
+          <button mat-raised-button class="option-button"
+                  [ngClass]="{'correct-answer': showCorrectAnswer && questions[currentQuestionIndex].correctAnswers.includes(i)}"
+                  (click)="checkAnswer(i, questions[currentQuestionIndex].correctAnswers)">
+            {{ option }}
+          </button>
+        </div>
       </div>
       <div *ngIf="showCorrectAnswer">
         <button mat-raised-button color="accent" (click)="nextQuestion()">Next Question</button>
