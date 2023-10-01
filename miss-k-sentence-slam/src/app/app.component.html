@@ -13,16 +13,16 @@
   </div>
   <mat-card *ngIf="questions.length > 0" class="question-card">
     <mat-card-content>
-      <div class="question-box">
+      <div class="question-box" [ngClass]="{'low-time': remainingTime !== null && remainingTime <= 5}">
         <div class="overlay" *ngIf="overlayMessage">
           {{ overlayMessage }}
         </div>
-        {{ questions[currentQuestionIndex].sentence }}
+        {{ questions[currentQuestionIndex]?.sentence }}
       </div>
       <div class="options-container">
-        <div class="option" *ngFor="let option of questions[currentQuestionIndex].options; let i = index">
+        <div class="option" *ngFor="let option of questions[currentQuestionIndex]?.options; let i = index">
           <span class="option-label">{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[i] }}</span>
-          <button mat-raised-button [disabled]="buttonsDisabled || overlayMessage" (click)="checkAnswer(i, questions[currentQuestionIndex].correctAnswers)">
+          <button mat-raised-button [disabled]="buttonsDisabled || overlayMessage" (click)="checkAnswer(i, questions[currentQuestionIndex]?.correctAnswers)">
             {{ option }}
           </button>
           <mat-icon *ngIf="feedbackIcons[i]">{{ feedbackIcons[i] === 'check' ? 'check_circle' : 'cancel' }}</mat-icon>

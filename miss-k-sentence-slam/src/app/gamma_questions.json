@@ -3,7 +3,7 @@
       "level": 3,
       "sentence": "Which is the correct way to write the first letter of the alphabet in lower case?",
       "options": ["a", "A", "1", "@"],
-      "correctAnswers": [1],
+      "correctAnswers": [0],
       "timeLimit": 15
     },
     {

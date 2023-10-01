@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from './question.service';
+import Ajv from 'ajv';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,7 @@ import { QuestionService } from './question.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  title = 'Miss K Sentence Slam';
   currentLevel = 1;
   currentQuestionIndex = 0;
   questions: any[] = [];
@@ -22,15 +24,35 @@ export class AppComponent implements OnInit {
   constructor(private questionService: QuestionService) {}
 
   ngOnInit() {
+    // Validate JSON files against schema
+    const ajv = new Ajv();
+    const schema = {/* your JSON schema here */};
+    if (!ajv.validate(schema, this.questionService.getQuestions(1)) ||
+        !ajv.validate(schema, this.questionService.getQuestions(2)) ||
+        !ajv.validate(schema, this.questionService.getQuestions(3))) {
+      console.error("Invalid JSON files");
+      return;
+    }
+
     this.startGame(1);
   }
 
+  // This function starts the game and initializes variables
   startGame(level: number) {
     clearInterval(this.timer);
     this.currentLevel = level;
     this.currentQuestionIndex = 0;
-    this.questions = this.questionService.getQuestions(level);
+    this.questions = this.shuffleArray(this.questionService.getQuestions(level));
     this.nextQuestion();
+  }
+
+  // Shuffle function to randomize questions
+  shuffleArray(array: any[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
   nextQuestion() {
