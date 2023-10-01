@@ -1,22 +1,25 @@
 <div>
-  <h1>Miss K's Supersonic Sentence Slam</h1>
-  <div>
-    <button (click)="startGame(1)">Level 1</button>
-    <button (click)="startGame(2)">Level 2</button>
-    <button (click)="startGame(3)">Level 3</button>
-  </div>
-  <div>Current Level: {{ currentLevel }}</div> <!-- Add this line to show the current level -->
-
-<div *ngIf="questions.length > 0">
-  <div>{{ questions[currentQuestionIndex].sentence }}</div>
-  <div>
-    <button *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
-            [ngClass]="{'correct-answer': showCorrectAnswer && questions[currentQuestionIndex].correctAnswers.includes(i)}"
-            (click)="checkAnswer(i, questions[currentQuestionIndex].correctAnswers)">
-      {{ option }}
-    </button>
-  </div>
-  <div *ngIf="showCorrectAnswer">
-    <button (click)="nextQuestion()">Next Question</button>
-  </div>
+  <mat-toolbar color="primary">
+    <span>Miss K's Supersonic Sentence Slam</span>
+    <span class="spacer"></span>
+    <button mat-button (click)="startGame(1)">Level 1</button>
+    <button mat-button (click)="startGame(2)">Level 2</button>
+    <button mat-button (click)="startGame(3)">Level 3</button>
+  </mat-toolbar>
+  <div>Current Level: {{ currentLevel }}</div>
+  <mat-card *ngIf="questions.length > 0">
+    <mat-card-content>
+      <div>{{ questions[currentQuestionIndex].sentence }}</div>
+      <div>
+        <button mat-raised-button *ngFor="let option of questions[currentQuestionIndex].options; let i = index"
+                [ngClass]="{'correct-answer': showCorrectAnswer && questions[currentQuestionIndex].correctAnswers.includes(i)}"
+                (click)="checkAnswer(i, questions[currentQuestionIndex].correctAnswers)">
+          {{ option }}
+        </button>
+      </div>
+      <div *ngIf="showCorrectAnswer">
+        <button mat-raised-button color="accent" (click)="nextQuestion()">Next Question</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
