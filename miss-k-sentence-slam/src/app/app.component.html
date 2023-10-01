@@ -2,11 +2,11 @@
   <mat-toolbar color="primary">
     <span>Miss K's Supersonic Sentence Slam</span>
     <span class="spacer"></span>
-    <button mat-button (click)="startGame(1)">Level 1</button>
-    <button mat-button (click)="startGame(2)">Level 2</button>
-    <button mat-button (click)="startGame(3)">Level 3</button>
+    <button mat-button [ngClass]="{'selected-level': currentLevel === 1}" (click)="startGame(1)">Level 1</button>
+    <button mat-button [ngClass]="{'selected-level': currentLevel === 2}" (click)="startGame(2)">Level 2</button>
+    <button mat-button [ngClass]="{'selected-level': currentLevel === 3}" (click)="startGame(3)">Level 3</button>
   </mat-toolbar>
-  <div class="subheader">
+    <div class="subheader">
     <span>Selected Level: {{ currentLevel }}</span>
     <span>Question: {{ currentQuestionIndex + 1 }} of {{ questions.length }}</span>
     <span *ngIf="remainingTime">Timer: {{ remainingTime }}s</span>

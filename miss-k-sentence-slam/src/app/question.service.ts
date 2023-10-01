@@ -8,9 +8,9 @@ import gammaQuestions from './gamma_questions.json';
 })
 export class QuestionService {
   questions: any = {
-    1: alphaQuestions,
+    1: gammaQuestions,
     2: betaQuestions,
-    3: gammaQuestions
+    3: alphaQuestions
   };
 
   constructor() { }

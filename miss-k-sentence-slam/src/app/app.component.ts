@@ -31,8 +31,9 @@ export class AppComponent implements OnInit {
   constructor(private questionService: QuestionService) { }
 
   ngOnInit() {
-    this.startGame(this.currentLevel);
+    this.startGame(1);  // Default to level 1
   }
+  
 
   startGame(level: number) {
     this.currentLevel = level;
@@ -82,16 +83,18 @@ export class AppComponent implements OnInit {
       this.helpClicks++;
       const currentQuestion = this.questions[this.currentQuestionIndex];
       const wrongAnswers = currentQuestion.options
-        .map((option, index) => index)
-        .filter(index => !currentQuestion.correctAnswers.includes(index));
-      const randomWrongIndex = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)];
+        .map((option, index) => ({ option, index }))
+        .filter(({ index }) => !currentQuestion.correctAnswers.includes(index) && currentQuestion.options[index] !== null);
+  
+      const randomWrongIndex = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)].index;
       currentQuestion.options[randomWrongIndex] = null;
+  
       if (this.helpClicks === 3 || wrongAnswers.length === 1) {
         this.helpButtonDisabled = true;
       }
     }
   }
-
+  
   nextQuestion() {
     this.currentQuestionIndex++;
     this.showCorrectAnswer = false;

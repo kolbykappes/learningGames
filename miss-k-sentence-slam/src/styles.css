@@ -114,3 +114,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .selected-answer {
     background-color: #ddd;
   }
+
+  .selected-level {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
