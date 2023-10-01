@@ -1,0 +1,38 @@
+[
+    {
+      "level": 3,
+      "sentence": "Which is the correct way to write the first letter of the alphabet in lower case?",
+      "options": ["a", "A", "1", "@"],
+      "correctAnswers": [1],
+      "timeLimit": 15
+    },
+    {
+      "level": 3,
+      "sentence": "What does the word 'cat' sound like?",
+      "options": ["Kite", "Kat", "Sat", "Hat"],
+      "correctAnswers": [1],
+      "timeLimit": 15
+    },
+    {
+      "level": 3,
+      "sentence": "What is a noun in this sentence: 'The dog runs.'",
+      "options": ["Runs", "The", "Dog", "And"],
+      "correctAnswers": [2],
+      "timeLimit": 15
+    },
+    {
+      "level": 3,
+      "sentence": "What is a verb in this sentence: 'The cat sleeps.'",
+      "options": ["The", "Cat", "Sleeps", "And"],
+      "correctAnswers": [2],
+      "timeLimit": 15
+    },
+    {
+      "level": 3,
+      "sentence": "Which is a simple sentence?",
+      "options": ["The cat and the dog.", "The cat sleeps.", "Sleeping cats.", "Sleeps."],
+      "correctAnswers": [1],
+      "timeLimit": 15
+    }
+  ]
+  

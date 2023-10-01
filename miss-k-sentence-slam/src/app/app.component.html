@@ -6,7 +6,6 @@
     <button mat-button (click)="startGame(2)">Level 2</button>
     <button mat-button (click)="startGame(3)">Level 3</button>
   </mat-toolbar>
-  <!-- Subheader -->
   <div class="subheader">
     <span>Selected Level: {{ currentLevel }}</span>
     <span>Question: {{ currentQuestionIndex + 1 }} of {{ questions.length }}</span>
@@ -23,18 +22,16 @@
       <div class="options-container">
         <div class="option" *ngFor="let option of questions[currentQuestionIndex].options; let i = index">
           <span class="option-label">{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[i] }}</span>
-          <button mat-raised-button class="option-button" [disabled]="buttonsDisabled"
-                  [ngClass]="{'selected-answer': i === selectedAnswerIndex, 'correct-answer': showCorrectAnswer && questions[currentQuestionIndex].correctAnswers.includes(i)}"
-                  (click)="checkAnswer(i, questions[currentQuestionIndex].correctAnswers)">
+          <button mat-raised-button [disabled]="buttonsDisabled" (click)="checkAnswer(i, questions[currentQuestionIndex].correctAnswers)">
             {{ option }}
           </button>
-          <span class="feedback-icon" *ngIf="feedbackIcons[i] === 'check'">&#x2713;</span>
-          <span class="feedback-icon" *ngIf="feedbackIcons[i] === 'close'">&#x2717;</span>
+          <mat-icon *ngIf="feedbackIcons[i]">{{ feedbackIcons[i] === 'check' ? 'check_circle' : 'cancel' }}</mat-icon>
         </div>
       </div>
       <div *ngIf="showCorrectAnswer">
         <button mat-raised-button color="accent" (click)="nextQuestion()">Next Question</button>
       </div>
+      <button mat-raised-button color="warn" (click)="helpMeMissK()">Help me Miss K!</button>
     </mat-card-content>
   </mat-card>
 </div>

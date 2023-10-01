@@ -1,0 +1,31 @@
+[
+    {
+      "level": 2,
+      "sentence": "Which word follows the 'i before e' rule?",
+      "options": ["Receive", "Recieve", "Recive", "Reecive"],
+      "correctAnswers": [0],
+      "timeLimit": 30
+    },
+    {
+      "level": 2,
+      "sentence": "Which is a compound sentence?",
+      "options": ["I like pizza.", "I like pizza and pasta.", "Pizza is good.", "I eat pizza."],
+      "correctAnswers": [1],
+      "timeLimit": 30
+    },
+    {
+      "level": 2,
+      "sentence": "Which sentence uses correct punctuation?",
+      "options": ["Where are you going", "Where are you going!", "Where are you going?", "Where are you going."],
+      "correctAnswers": [2],
+      "timeLimit": 30
+    },
+    {
+      "level": 2,
+      "sentence": "Which sentence has correct subject-verb agreement?",
+      "options": ["She are happy.", "They is happy.", "She is happy.", "They am happy."],
+      "correctAnswers": [2],
+      "timeLimit": 30
+    }
+  ]
+  

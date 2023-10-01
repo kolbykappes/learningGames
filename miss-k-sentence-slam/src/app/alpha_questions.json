@@ -1,0 +1,73 @@
+[
+    {
+      "level": 1,
+      "sentence": "Which sentence is a question?",
+      "options": ["How are you?", "I am fine.", "Nice to meet you.", "Goodbye."],
+      "correctAnswers": [0],
+      "timeLimit": null
+    },
+    {
+      "level": 1,
+      "sentence": "Which sentence is correct?",
+      "options": ["She run fast.", "She runs fast.", "She running fast.", "She are running fast."],
+      "correctAnswers": [1],
+      "timeLimit": null
+    },
+    {
+      "level": 1,
+      "sentence": "Which sentence has a mistake?",
+      "options": ["I have two pencils.", "She has a red car.", "He have a bike.", "They have a dog."],
+      "correctAnswers": [2],
+      "timeLimit": null
+    },
+    {
+      "level": 1,
+      "sentence": "Which sentence uses the word 'because' correctly?",
+      "options": ["I like pizza because it's tasty.", "Because I like.", "Because it's raining I have an umbrella.", "I have because an umbrella."],
+      "correctAnswers": [0],
+      "timeLimit": null
+    },
+    {
+      "level": 1,
+      "sentence": "Which sentence has the correct punctuation?",
+      "options": ["Where is my bag", "Where is my bag.", "Where is my bag!", "Where is my bag?"],
+      "correctAnswers": [3],
+      "timeLimit": null
+    },
+    {
+      "level": 1,
+      "sentence": "Which sentence uses 'their' correctly?",
+      "options": ["Their going to the park.", "Their is my book.", "They're book is on the table.", "Their books are on the table."],
+      "correctAnswers": [3],
+      "timeLimit": null
+    },
+    {
+      "level": 1,
+      "sentence": "Which sentence uses 'you're' correctly?",
+      "options": ["Your happy.", "You're book is good.", "You're happy.", "Your going to the park."],
+      "correctAnswers": [2],
+      "timeLimit": null
+    },
+    {
+      "level": 1,
+      "sentence": "Which sentence is a command?",
+      "options": ["Can you close the door?", "Please close the door.", "The door is closed.", "Is the door closed?"],
+      "correctAnswers": [1],
+      "timeLimit": null
+    },
+    {
+      "level": 1,
+      "sentence": "Which sentence has an adjective?",
+      "options": ["The cat runs.", "The quick cat.", "The cat.", "Runs quickly."],
+      "correctAnswers": [1],
+      "timeLimit": null
+    },
+    {
+      "level": 1,
+      "sentence": "Which sentence is in the future tense?",
+      "options": ["She eats.", "She ate.", "She will eat.", "She eating."],
+      "correctAnswers": [2],
+      "timeLimit": null
+    }
+  ]
+  

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MatCardModule } from '@angular/material/card';
     BrowserModule,
     MatToolbarModule,  // Add this line
     MatButtonModule,   // Add this line
-    MatCardModule      // Add this line
+    MatCardModule,      // Add this line
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

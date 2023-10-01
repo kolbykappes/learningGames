@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from './question.service';
 
+
 interface Question {
   level: number;
   sentence: string;
-  options: string[];
+  options: (string | null)[];
   correctAnswers: number[];
   timeLimit: number | null;
 }
@@ -24,7 +25,8 @@ export class AppComponent implements OnInit {
   overlayMessage: string | null = null;
   buttonsDisabled = false;
   feedbackIcons: string[] = [];
-  selectedAnswerIndex: number | null = null; // New property to track the selected answer index
+  selectedAnswerIndex: number | null = null;
+  helpClicks = 0;
 
   constructor(private questionService: QuestionService) { }
 
@@ -34,7 +36,7 @@ export class AppComponent implements OnInit {
 
   startGame(level: number) {
     this.currentLevel = level;
-    this.questions = this.questionService.getQuestions().filter(q => q.level === level);
+    this.questions = this.questionService.getQuestions(level);
     this.currentQuestionIndex = 0;
     this.score = 0;
     this.showCorrectAnswer = false;
@@ -56,7 +58,7 @@ export class AppComponent implements OnInit {
   }
 
   checkAnswer(selectedIndex: number, correctAnswers: number[]) {
-    this.selectedAnswerIndex = selectedIndex; // Set the selected answer index
+    this.selectedAnswerIndex = selectedIndex;
     this.buttonsDisabled = true;
     if (correctAnswers.includes(selectedIndex)) {
       this.score++;
@@ -78,7 +80,20 @@ export class AppComponent implements OnInit {
     this.showCorrectAnswer = false;
     this.buttonsDisabled = false;
     this.feedbackIcons = [];
-    this.selectedAnswerIndex = null; // Reset the selected answer index
+    this.selectedAnswerIndex = null;
     this.startTimer();
+  }
+
+  helpMeMissK() {
+    if (this.helpClicks < 3) {
+      this.helpClicks++;
+      const currentQuestion = this.questions[this.currentQuestionIndex];
+      const wrongAnswers = currentQuestion.options
+        .map((option, index) => index)
+        .filter(index => !currentQuestion.correctAnswers.includes(index));
+      const randomWrongIndex = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)];
+      currentQuestion.options[randomWrongIndex] = null;
+
+    }
   }
 }
