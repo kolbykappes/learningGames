@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from './question.service';
 
-
 interface Question {
   level: number;
   sentence: string;
@@ -27,6 +26,7 @@ export class AppComponent implements OnInit {
   feedbackIcons: string[] = [];
   selectedAnswerIndex: number | null = null;
   helpClicks = 0;
+  helpButtonDisabled = false;
 
   constructor(private questionService: QuestionService) { }
 
@@ -41,6 +41,8 @@ export class AppComponent implements OnInit {
     this.score = 0;
     this.showCorrectAnswer = false;
     this.startTimer();
+    this.helpClicks = 0;
+    this.helpButtonDisabled = false;
   }
 
   startTimer() {
@@ -75,15 +77,6 @@ export class AppComponent implements OnInit {
     }, 2000);
   }
 
-  nextQuestion() {
-    this.currentQuestionIndex++;
-    this.showCorrectAnswer = false;
-    this.buttonsDisabled = false;
-    this.feedbackIcons = [];
-    this.selectedAnswerIndex = null;
-    this.startTimer();
-  }
-
   helpMeMissK() {
     if (this.helpClicks < 3) {
       this.helpClicks++;
@@ -93,7 +86,20 @@ export class AppComponent implements OnInit {
         .filter(index => !currentQuestion.correctAnswers.includes(index));
       const randomWrongIndex = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)];
       currentQuestion.options[randomWrongIndex] = null;
-
+      if (this.helpClicks === 3 || wrongAnswers.length === 1) {
+        this.helpButtonDisabled = true;
+      }
     }
+  }
+
+  nextQuestion() {
+    this.currentQuestionIndex++;
+    this.showCorrectAnswer = false;
+    this.buttonsDisabled = false;
+    this.feedbackIcons = [];
+    this.selectedAnswerIndex = null;
+    this.startTimer();
+    this.helpClicks = 0;
+    this.helpButtonDisabled = false;
   }
 }

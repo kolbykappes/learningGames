@@ -31,7 +31,7 @@
       <div *ngIf="showCorrectAnswer">
         <button mat-raised-button color="accent" (click)="nextQuestion()">Next Question</button>
       </div>
-      <button mat-raised-button color="warn" (click)="helpMeMissK()">Help me Miss K!</button>
+      <button mat-raised-button color="warn" [disabled]="helpButtonDisabled" (click)="helpMeMissK()">Help me Miss K!</button>
     </mat-card-content>
   </mat-card>
 </div>
