@@ -6,11 +6,15 @@
     <button mat-button (click)="startGame(2)">Level 2</button>
     <button mat-button (click)="startGame(3)">Level 3</button>
   </mat-toolbar>
-  <div>Current Level: {{ currentLevel }}</div>
+  <!-- Subheader -->
+  <div class="subheader">
+    <span>Selected Level: {{ currentLevel }}</span>
+    <span>Question: {{ currentQuestionIndex + 1 }} of {{ questions.length }}</span>
+    <span *ngIf="remainingTime">Timer: {{ remainingTime }}s</span>
+  </div>
   <mat-card *ngIf="questions.length > 0" class="question-card">
     <mat-card-content>
       <div class="question-box">
-        <!-- Overlay for correct/wrong answer message -->
         <div class="overlay" *ngIf="overlayMessage">
           {{ overlayMessage }}
         </div>
@@ -20,7 +24,7 @@
         <div class="option" *ngFor="let option of questions[currentQuestionIndex].options; let i = index">
           <span class="option-label">{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[i] }}</span>
           <button mat-raised-button class="option-button" [disabled]="buttonsDisabled"
-                  [ngClass]="{'correct-answer': showCorrectAnswer && questions[currentQuestionIndex].correctAnswers.includes(i)}"
+                  [ngClass]="{'selected-answer': i === selectedAnswerIndex, 'correct-answer': showCorrectAnswer && questions[currentQuestionIndex].correctAnswers.includes(i)}"
                   (click)="checkAnswer(i, questions[currentQuestionIndex].correctAnswers)">
             {{ option }}
           </button>

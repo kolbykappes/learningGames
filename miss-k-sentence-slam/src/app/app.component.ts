@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   overlayMessage: string | null = null;
   buttonsDisabled = false;
   feedbackIcons: string[] = [];
+  selectedAnswerIndex: number | null = null; // New property to track the selected answer index
 
   constructor(private questionService: QuestionService) { }
 
@@ -55,6 +56,7 @@ export class AppComponent implements OnInit {
   }
 
   checkAnswer(selectedIndex: number, correctAnswers: number[]) {
+    this.selectedAnswerIndex = selectedIndex; // Set the selected answer index
     this.buttonsDisabled = true;
     if (correctAnswers.includes(selectedIndex)) {
       this.score++;
@@ -76,6 +78,7 @@ export class AppComponent implements OnInit {
     this.showCorrectAnswer = false;
     this.buttonsDisabled = false;
     this.feedbackIcons = [];
+    this.selectedAnswerIndex = null; // Reset the selected answer index
     this.startTimer();
   }
 }
