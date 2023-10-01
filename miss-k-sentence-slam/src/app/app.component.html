@@ -1,5 +1,4 @@
 <div class="game-board">
-<div>
   <mat-toolbar color="primary">
     <span>Miss K's Supersonic Sentence Slam</span>
     <span class="spacer"></span>
@@ -10,21 +9,23 @@
   <div>Current Level: {{ currentLevel }}</div>
   <mat-card *ngIf="questions.length > 0" class="question-card">
     <mat-card-content>
-      <div class="question-header">
-        <span>Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}</span>
-        <span *ngIf="questions[currentQuestionIndex].timeLimit" class="timer">Time: {{ questions[currentQuestionIndex].timeLimit }}s</span>
-      </div>
       <div class="question-box">
+        <!-- Overlay for correct/wrong answer message -->
+        <div class="overlay" *ngIf="overlayMessage">
+          {{ overlayMessage }}
+        </div>
         {{ questions[currentQuestionIndex].sentence }}
       </div>
       <div class="options-container">
         <div class="option" *ngFor="let option of questions[currentQuestionIndex].options; let i = index">
           <span class="option-label">{{ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[i] }}</span>
-          <button mat-raised-button class="option-button"
+          <button mat-raised-button class="option-button" [disabled]="buttonsDisabled"
                   [ngClass]="{'correct-answer': showCorrectAnswer && questions[currentQuestionIndex].correctAnswers.includes(i)}"
                   (click)="checkAnswer(i, questions[currentQuestionIndex].correctAnswers)">
             {{ option }}
           </button>
+          <span class="feedback-icon" *ngIf="feedbackIcons[i] === 'check'">&#x2713;</span>
+          <span class="feedback-icon" *ngIf="feedbackIcons[i] === 'close'">&#x2717;</span>
         </div>
       </div>
       <div *ngIf="showCorrectAnswer">
@@ -32,8 +33,4 @@
       </div>
     </mat-card-content>
   </mat-card>
-</div>
-<footer class="app-footer">
-  Version: 1.0.0
-</footer>
 </div>
